@@ -18,16 +18,20 @@
             <th>Cluster</th>
             <th><abbr title="Master Nodes">MN</abbr></th>
             <th><abbr title="Worker Nodes">WN</abbr></th>
-            <th>Inst. Types</th>
-            <th><abbr title="Spot Instances?">S?</abbr></th>
+<!--        <th>Inst. Types</th>
+            <th><abbr title="Spot Instances?">S?</abbr></th> -->
             <th>Version</th>
+<!--
             <th><abbr title="Ingresses">I</abbr></th>
+-->
             <th><abbr title="Pods">P</abbr></th>
             <th><abbr title="User Pods">UP</abbr></th>
             <th>CPU</th>
             <th>Memory (GiB)</th>
+<!--
             <th class="has-text-right">Cost</th>
             <th class="has-text-right">Slack Cost</th>
+-->
             {% if links['cluster']: %}
             <th></th>
             {% endif %}
@@ -39,13 +43,16 @@
             <td><a href="./cluster-{{ cluster_id }}.html">{{ summary.cluster.name }}</a></td>
             <td class="has-text-right">{{ summary.master_nodes }}</td>
             <td class="has-text-right">{{ summary.worker_nodes }}</td>
-            <td>{{ summary.worker_instance_types|join(', ') }}</td>
+<!--            <td>{{ summary.worker_instance_types|join(', ') }}</td>
             <td>{% if summary.worker_instance_is_spot: %}
                 <span class="icon"><i class="fas fa-percentage has-text-success"></i></span>
                 {% endif %}
             </td>
+-->
             <td>{{ summary.kubelet_versions|join(', ') }}</td>
+<!--
             <td class="has-text-right">{{ summary.ingresses|count }}</td>
+-->
             <td class="has-text-right">{{ summary.pods|count }}</td>
             <td class="has-text-right">{{ summary.user_pods }}</td>
 
@@ -67,8 +74,10 @@
                     <progress class="progress is-primary" value="{{ summary.usage.memory }}" max="{{ summary.allocatable.memory }}"></progress>
                 </div>
             </td>
+<!--
             <td class="has-text-right">{{ summary.cost|money }}</td>
             <td class="has-text-right">{{ summary.slack_cost|money }}</td>
+-->
             {% if links['cluster']: %}
             <td class="links">
                 <div class="buttons has-addons">

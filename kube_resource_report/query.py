@@ -254,7 +254,15 @@ def map_node(_node: Node):
         parsed = parse_resource(v)
         node["allocatable"][k] = parsed
 
-    role = _node.labels.get(NODE_LABEL_ROLE) or "worker"
+    if  _node.labels.get('node-role.kubernetes.io/infra') == '':
+        role = "infra"
+    elif _node.labels.get('node-role.kubernetes.io/master') == '': 
+        role = "master"
+    elif _node.labels.get('node-role.kubernetes.io/worker') == '': 
+        role = "worker"
+    else: 
+        role = _node.labels.get(NODE_LABEL_ROLE) or "worker"
+
     region = _node.labels.get(NODE_LABEL_REGION, "unknown")
     instance_type = _node.labels.get(NODE_LABEL_INSTANCE_TYPE, "unknown")
     is_spot = _node.labels.get(NODE_LABEL_SPOT) == NODE_LABEL_SPOT_VALUE
