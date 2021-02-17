@@ -33,18 +33,20 @@
             <p class="title">{{ total_pods }}</p>
         </div>
     </div>
+<!--
     <div class="level-item has-text-centered">
         <div>
             <p class="heading">Monthly Cost</p>
             <p class="title">{{ total_cost|money }} USD</p>
         </div>
     </div>
+-->
 </nav>
-
+<!--
 <div class="notification is-warning">
     You can potentially save <strong>{{ total_slack_cost|money }} USD</strong> every month by optimizing resource requests and reducing slack.
 </div>
-
+-->
 {% if alpha_ema < 1 %}
 <div class="notification">
     Remember that you are using EMA (<a href="https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average">Exponential Moving Average</a>). What you see are not current values, these values are averaged.
@@ -73,10 +75,11 @@
     <progress class="progress is-primary" value="{{ total_usage['memory'] }}" max="{{ total_allocatable['memory'] }}"></progress>
 </div>
 
+<!--
 <h2 class="title is-5">Resource-based Pricing</h2>
 
 <p class="content">Price per vCPU is {{ '{:,.04f}'.format(total_cost_per_user_request_hour.cpu) }} USD per hour and per GiB memory is {{ '{:,.04f}'.format(total_cost_per_user_request_hour.memory) }} USD per hour.</p>
-
+-->
 <h2 class="title is-5">Notifications</h2>
 {% for notification in notifications: %}
 <div class="notification is-{{ 'danger' if notification[0] == 'error' }}">

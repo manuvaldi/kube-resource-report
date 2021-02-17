@@ -112,3 +112,7 @@ ul.ingressroute li p {
 .table thead th {
     vertical-align: top !important; /* Ensure headings align when `abbr` tags are used */
 }
+
+th.cpumenbar {
+  width: 250px;
+}

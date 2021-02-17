@@ -256,11 +256,11 @@ def map_node(_node: Node):
 
     if  _node.labels.get('node-role.kubernetes.io/infra') == '':
         role = "infra"
-    elif _node.labels.get('node-role.kubernetes.io/master') == '': 
+    elif _node.labels.get('node-role.kubernetes.io/master') == '':
         role = "master"
-    elif _node.labels.get('node-role.kubernetes.io/worker') == '': 
+    elif _node.labels.get('node-role.kubernetes.io/worker') == '':
         role = "worker"
-    else: 
+    else:
         role = _node.labels.get(NODE_LABEL_ROLE) or "worker"
 
     region = _node.labels.get(NODE_LABEL_REGION, "unknown")
@@ -460,6 +460,21 @@ def query_cluster(
         "routegroups": [],
         "ingressroutes": [],
     }
+
+    ClusterVersion = pykube.objects.object_factory(cluster.client, "config.openshift.io/v1", "ClusterVersion")
+    release = ClusterVersion.objects(cluster.client).get_by_name("version").obj["status"]["desired"]["version"]
+
+    cluster_summary["release"] = release
+
+    ModuleManager = pykube.objects.object_factory(cluster.client,"caas.bbva.com/v1","CaasModuleDeployment")
+
+    try:
+        modulefd = ModuleManager.objects(cluster.client, namespace="caas-module-manager").get(name='fd-aggregator').obj["spec"]["tag"]
+    except ObjectDoesNotExist:
+        modulefd = "Not installed"
+
+    cluster_summary["modulemanagerfd"] = modulefd
+
 
     metrics.get_pod_usage(
         cluster, pods, prev_cluster_summaries.get("pods", {}), alpha_ema
