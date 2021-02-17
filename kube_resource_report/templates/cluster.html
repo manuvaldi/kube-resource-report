@@ -45,20 +45,22 @@
             <p class="title">{{ summary.requests.memory|filesizeformat(True) }} / {{ summary.allocatable.memory|filesizeformat(True) }}</p>
         </div>
     </div>
+<!--
     <div class="level-item has-text-centered">
         <div>
             <p class="heading">Monthly Cost</p>
             <p class="title">{{ summary.cost|money }} USD</p>
         </div>
     </div>
+-->
 </nav>
-
+<!--
 <div class="notification is-warning">
     You can potentially save <strong>{{ summary.slack_cost|money }} USD</strong> every month by optimizing resource requests and reducing slack.
 </div>
 
 <p class="content">Price per requested vCPU is {{ '{:,.04f}'.format(summary.cost_per_user_request_hour.cpu) }} USD per hour and per requested GiB memory is {{ '{:,.04f}'.format(summary.cost_per_user_request_hour.memory) }} USD per hour.</p>
-
+-->
 <div class="section collapsible" data-name="nodes">
     <h2 class="title is-5">Nodes</h2>
 
@@ -67,17 +69,21 @@
             <tr>
                 <th>Name</th>
                 <th>Role</th>
+<!--
                 <th>Instance Type</th>
                 <th><abbr title="Spot Instance?">S?</abbr></th>
+-->
                 <th>Version</th>
-                <th><abbr title="CPU Capacity">CC</abbr></th>
-                <th><abbr title="Memory Capacity">MC</abbr></th>
+                <th><abbr title="CPU Capacity">CPU Cap.</abbr></th>
+                <th><abbr title="Memory Capacity">Mem Cap.</abbr></th>
                 <th>CPU</th>
                 <th>Memory (GiB)</th>
+<!--
                 <th>Cost</th>
                 {% if links['node']: %}
                 <th></th>
                 {% endif %}
+-->
             </tr>
         </thead>
         <tbody>
@@ -85,11 +91,13 @@
             <tr>
                 <td><a href="./node-{{ summary.cluster.id }}.{{ node_name }}.html">{{ node_name }}</a></td>
                 <td>{{ node.role }}</td>
+<!--
                 <td>{{ node.instance_type }}</td>
                 <td>{% if node.spot: %}
                     <span class="icon"><i class="fas fa-percentage has-text-success"></i></span>
                     {% endif %}
                 </td>
+-->
                 <td>{{ node.kubelet_version }}</td>
                 <td class="has-text-right">{{ node.capacity.cpu|round(1) }}</td>
                 <td class="has-text-right">{{ node.capacity.memory|filesizeformat(True) }}</td>
@@ -116,8 +124,9 @@
                         <progress class="progress is-primary" value="{{ node.usage.memory }}" max="{{ node.allocatable.memory }}"></progress>
                     </div>
                 </td>
+<!--
                 <td class="has-text-right">{{ node.cost|money }}</td>
-
+-->
                 {% if links['node']: %}
                 <td class="links">
                     <div class="buttons has-addons">
