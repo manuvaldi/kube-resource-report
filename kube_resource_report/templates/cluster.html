@@ -99,8 +99,8 @@
                 </td>
 -->
                 <td>{{ node.kubelet_version }}</td>
-                <td class="has-text-right">{{ node.capacity.cpu|round(1) }}</td>
-                <td class="has-text-right">{{ node.capacity.memory|filesizeformat(True) }}</td>
+                <td >{{ node.capacity.cpu|round(1) }}</td>
+                <td >{{ node.capacity.memory|filesizeformat(True) }}</td>
 
                 <td style="font-size: 0.75rem" data-value="{{ node.usage.cpu }}">
                     <div class="resource-labels">
